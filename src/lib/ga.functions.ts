@@ -24,7 +24,7 @@ function getPublicOrigin(): string {
   // Always use the public app URL for OAuth redirects so Google's allow-list matches exactly.
   const explicit = process.env.PUBLIC_APP_URL;
   if (explicit) return explicit.replace(/\/$/, "");
-  return "https://sync-ai-os.lovable.app";
+  return "https://martek-flow.lovable.app";
 }
 
 function redirectUri() {
