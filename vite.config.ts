@@ -9,9 +9,9 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 // Hardcoded fallbacks ensure the client bundle always has the publishable Supabase
 // credentials, even if the build environment is missing the env vars (e.g., after a
 // remix without history). These are non-secret values safe to ship in the client.
-const FALLBACK_SUPABASE_URL = "https://shakuqwibiwwaweozcto.supabase.co";
+const FALLBACK_SUPABASE_URL = "https://sxebfsftfsdzaixjzizw.supabase.co";
 const FALLBACK_SUPABASE_PUBLISHABLE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNoYWt1cXdpYml3d2F3ZW96Y3RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0Nzc0NDgsImV4cCI6MjA5NjA1MzQ0OH0.LjH9R5AdJqKpjI9x14-xQl39357Su-VeTid2ovYMQcI";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4ZWJmc2Z0ZnNkemFpeGp6aXp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjQ1MjksImV4cCI6MjA5NjYwMDUyOX0.N0TF9cX0y0UBPYFMfoMVvJsUucAF6wD68vWOSGtbq3o";
 
 const SUPABASE_URL =
   process.env.VITE_SUPABASE_URL ?? process.env.SUPABASE_URL ?? FALLBACK_SUPABASE_URL;
