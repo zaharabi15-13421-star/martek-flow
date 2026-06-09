@@ -50,7 +50,7 @@ export function clearPostAuthRedirect() {
 function safeRedirectPath(value: string, fallback = DASHBOARD_PATH) {
   if (!value || value.startsWith("//")) return fallback;
   try {
-    const url = new URL(value, typeof window === "undefined" ? "https://sync-ai-os.lovable.app" : window.location.origin);
+    const url = new URL(value, typeof window === "undefined" ? "https://martek-flow.lovable.app" : window.location.origin);
     if (typeof window !== "undefined" && url.origin !== window.location.origin) return fallback;
     return `${url.pathname}${url.search}${url.hash}`;
   } catch {
