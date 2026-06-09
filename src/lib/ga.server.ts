@@ -104,7 +104,7 @@ export const GOOGLE_SCOPES = [
   "https://www.googleapis.com/auth/analytics.readonly",
 ];
 export const GOOGLE_SCOPE_PARAM = GOOGLE_SCOPES.join(" ");
-export const GA4_OAUTH_REDIRECT_URI = "https://sync-ai-os.lovable.app/api/public/ga/oauth/callback";
+export const GA4_OAUTH_REDIRECT_URI = "https://martek-flow.lovable.app/api/public/ga/oauth/callback";
 
 // Bump this whenever GOOGLE_SCOPES changes so existing connections are forced
 // to re-authenticate and receive tokens that include the new scopes.

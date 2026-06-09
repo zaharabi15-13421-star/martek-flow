@@ -4,7 +4,7 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { GA4_OAUTH_REDIRECT_URI, encryptToken, exchangeCode, hasRequiredScopes, parseIdTokenEmail, verifyState } from "@/lib/ga.server";
 
 function publicOrigin() {
-  return (process.env.PUBLIC_APP_URL ?? "https://sync-ai-os.lovable.app").replace(/\/$/, "");
+  return (process.env.PUBLIC_APP_URL ?? "https://martek-flow.lovable.app").replace(/\/$/, "");
 }
 
 export const Route = createFileRoute("/api/public/ga/oauth/callback")({
