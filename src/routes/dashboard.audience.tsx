@@ -3,9 +3,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Download, Search, X, Lock, MapPin, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import {
   audienceData,
+  getCountryData,
   INTEREST_CATEGORIES,
   type CountryData,
 } from "@/data/audienceIntelligenceData";
+import { CountrySelect } from "@/components/audience/CountrySelect";
+
 import { fetchWorldBankData } from "@/services/worldBankAPI";
 import {
   calculateMetrics,
