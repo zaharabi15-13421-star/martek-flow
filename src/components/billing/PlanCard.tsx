@@ -140,26 +140,33 @@ export function PlanCard({ plan, cycle, variant = "landing", isCurrent, onAction
         ))}
       </ul>
 
-      <button
-        type="button"
-        onClick={() => onAction?.(plan)}
-        disabled={isCurrent}
-        className="mt-6 w-full font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6366f1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0e1a] hover:opacity-90 active:scale-[0.99] disabled:cursor-default disabled:hover:opacity-100 disabled:active:scale-100"
-        style={{
-          borderRadius: 10,
-          height: 48,
-          fontSize: 15,
-          color: isCurrent ? "#fff" : "#fff",
-          background: isCurrent
-            ? "#059669"
-            : isPopular
-              ? "linear-gradient(135deg, #7c3aed, #6366f1, #3b82f6)"
-              : "#1f2937",
-          pointerEvents: isCurrent ? "none" : undefined,
-        }}
-      >
-        {isCurrent ? "Current Plan" : cta}
-      </button>
+      {(() => {
+        const isEnterprise = plan.id === "enterprise";
+        const isFree = plan.id === "free";
+        const isPurple =
+          plan.id === "starter" || plan.id === "pro" || plan.id === "growth";
+        return (
+          <button
+            type="button"
+            onClick={() => onAction?.(plan)}
+            className="mt-6 w-full font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6366f1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0e1a] hover:opacity-90 active:scale-[0.99]"
+            style={{
+              borderRadius: 10,
+              height: 48,
+              fontSize: 15,
+              color: "#fff",
+              background: isFree
+                ? "#059669"
+                : isPurple
+                  ? "linear-gradient(135deg, #7c3aed, #6366f1, #3b82f6)"
+                  : "transparent",
+              border: isEnterprise ? "1px solid rgba(255,255,255,0.2)" : "none",
+            }}
+          >
+            {cta}
+          </button>
+        );
+      })()}
     </div>
   );
 }
