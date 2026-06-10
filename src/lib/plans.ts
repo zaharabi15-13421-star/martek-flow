@@ -32,8 +32,8 @@ export const PLANS: Plan[] = [
     annualBilled: 0,
     savePct: 0,
     isFree: true,
-    ctaMonthly: "Get started free",
-    ctaAnnual: "Get started free",
+    ctaMonthly: "Get Started Free",
+    ctaAnnual: "Get Started Free",
     features: [
       { label: "500 AI credits / mo", included: true },
       { label: "1 brand workspace", included: true },
