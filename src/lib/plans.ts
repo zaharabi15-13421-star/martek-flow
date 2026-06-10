@@ -77,8 +77,8 @@ export const PLANS: Plan[] = [
     annualPerMo: 119,
     annualBilled: 1428,
     savePct: 20,
-    ctaMonthly: "Start free trial",
-    ctaAnnual: "Start annual trial",
+    ctaMonthly: "Upgrade to Pro",
+    ctaAnnual: "Upgrade to Pro",
     features: [
       { label: "25K AI credits / mo", included: true },
       { label: "3 brand workspaces", included: true },
