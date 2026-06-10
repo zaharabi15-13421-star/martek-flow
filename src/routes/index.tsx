@@ -31,7 +31,21 @@ const MODULES = [
   { icon: Layers, title: "Collaboration", desc: "Approvals, calendar, asset library.", accent: "indigo" },
 ];
 
-const INTEGRATIONS = ["Meta", "Google Ads", "TikTok", "LinkedIn", "WhatsApp", "Instagram", "YouTube", "Shopify", "HubSpot", "Stripe", "Mailchimp", "Salesforce", "Notion", "Slack", "Pinterest", "Snapchat"];
+const CORE_FEATURES: { icon: any; label: string; accent: string }[] = [
+  { icon: Plug, label: "Connect Platform", accent: "text-sky-300" },
+  { icon: Fingerprint, label: "Brand DNA", accent: "text-indigo-300" },
+  { icon: BookOpen, label: "Brand Guideline Generator", accent: "text-violet-300" },
+  { icon: Brain, label: "Brand Intelligence", accent: "text-purple-300" },
+  { icon: Radar, label: "Audience Intelligence", accent: "text-emerald-300" },
+  { icon: Wand2, label: "Creative Engine", accent: "text-fuchsia-300" },
+  { icon: Radio, label: "Reputation & Listening", accent: "text-rose-300" },
+  { icon: Workflow, label: "Campaign Automation", accent: "text-amber-300" },
+  { icon: Star, label: "Influencer OS", accent: "text-yellow-300" },
+  { icon: Contact, label: "Lead & CRM", accent: "text-cyan-300" },
+  { icon: LineChart, label: "Unified Analytics", accent: "text-teal-300" },
+  { icon: FlaskConical, label: "Simulation Engine", accent: "text-pink-300" },
+  { icon: Handshake, label: "Collaborations", accent: "text-blue-300" },
+];
 
 const REPLACED_TOOLS = [
   { name: "HubSpot", cost: 800 },
