@@ -434,7 +434,7 @@ function BrandSummaryTab({
                   else if (e.key === "Enter") { e.preventDefault(); if (suggestions[highlight]) pickSuggestion(suggestions[highlight]); }
                   else if (e.key === "Escape") setOpenSuggest(false);
                 }}
-                placeholder=""
+                placeholder="Search Your Brand Name"
                 className="mt-1.5 h-11 pr-9 bg-white/[0.04] border-white/10"
               />
               {(loadingSuggest || resolveMutation.isPending) && (
