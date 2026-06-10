@@ -77,7 +77,7 @@ function Landing() {
       <Bento />
       <LandingPricingSection />
       <ReplacementCalculator />
-      <CTA />
+      
       <Footer />
       <AuthModal open={demoOpen} onOpenChange={setDemoOpen} initialTab={authTab} />
     </div>
@@ -622,21 +622,6 @@ function ReplacementCalculator() {
 }
 
 
-function CTA() {
-  return (
-    <section className="relative max-w-7xl mx-auto px-6 py-24">
-      <div className="relative overflow-hidden rounded-3xl border border-white/10 p-10 text-center bg-gradient-to-br from-indigo-500/15 via-purple-500/10 to-transparent">
-        <div className="absolute inset-0 grid-bg opacity-30" />
-        <div className="relative">
-          <h3 className="text-3xl md:text-5xl font-semibold tracking-tight">Stop juggling tools.<br/><span className="text-gradient">Start running marketing as one.</span></h3>
-          <Link to="/dashboard/intelligence" className="mt-8 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 px-6 h-12 font-medium glow-primary">
-            Enter the OS <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Footer() {
   return (
