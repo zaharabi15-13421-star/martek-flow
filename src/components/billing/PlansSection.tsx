@@ -25,14 +25,6 @@ export function LandingPricingSection() {
               letterSpacing: "-0.02em",
             }}
           >
-            className="mt-3 text-white"
-            style={{
-              fontWeight: 800,
-              fontSize: "clamp(36px, 5vw, 52px)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.02em",
-            }}
-          >
             Choose the Plan That Fits Your Ambition
           </h2>
           <p className="mt-3 text-base" style={{ color: "#9ca3af" }}>
