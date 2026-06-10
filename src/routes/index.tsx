@@ -489,34 +489,27 @@ function Marquee() {
 }
 
 function Bento() {
-  const accentMap: Record<string, string> = {
-    indigo: "from-indigo-500/20 text-indigo-300",
-    purple: "from-purple-500/20 text-purple-300",
-    emerald: "from-emerald-500/20 text-emerald-300",
-    rose: "from-rose-500/20 text-rose-300",
-  };
   return (
     <section id="features" className="relative max-w-7xl mx-auto px-6 py-24">
       <div className="text-center mb-12">
         <div className="text-[11px] uppercase tracking-widest text-indigo-300/80">The Platform</div>
-        <h2 className="mt-2 text-3xl md:text-5xl font-semibold tracking-tight">10 Modules. <span className="text-gradient">One brain.</span></h2>
+        <h2 className="mt-2 text-3xl md:text-5xl font-semibold tracking-tight">Everything you need. <span className="text-gradient">One brain.</span></h2>
         <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">Every team. Every channel. Every metric — orchestrated by a single AI that knows your brand inside out.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[180px] gap-4">
-        {MODULES.map((m) => {
-          const Icon = m.icon;
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {SERVICES.map((s) => {
+          const Icon = s.icon;
           return (
             <motion.div
-              key={m.title}
+              key={s.name}
               whileHover={{ y: -4 }}
-              className={`relative group glass rounded-2xl p-6 overflow-hidden ${m.span ?? ""}`}
+              className="relative group glass rounded-2xl p-6 overflow-hidden min-h-[180px] flex flex-col"
             >
-              <div className={`absolute -top-16 -right-16 h-40 w-40 rounded-full blur-3xl bg-gradient-to-br opacity-50 ${accentMap[m.accent].split(" ")[0]}`} />
-              <Icon className={`h-6 w-6 ${accentMap[m.accent].split(" ")[1]}`} />
-              <div className="mt-4 text-lg font-semibold">{m.title}</div>
-              <p className="mt-1 text-sm text-muted-foreground">{m.desc}</p>
-              <div className="absolute bottom-4 right-5 text-xs text-muted-foreground/70 opacity-0 group-hover:opacity-100 transition flex items-center gap-1">Open <ArrowRight className="h-3 w-3" /></div>
+              <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-3xl bg-gradient-to-br from-purple-500/20 opacity-50" />
+              <Icon className="h-6 w-6 text-purple-300" />
+              <div className="mt-5 text-lg md:text-xl font-semibold leading-snug text-foreground">{s.value}</div>
+              <div className="mt-auto pt-4 text-xs uppercase tracking-wider text-muted-foreground/70">{s.name}</div>
             </motion.div>
           );
         })}
