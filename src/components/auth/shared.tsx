@@ -187,7 +187,7 @@ export function PasswordField({
           className="absolute top-1/2 -translate-y-1/2 right-2 grid place-items-center"
           style={{ width: 36, height: 36, color: "var(--auth-text-muted)" }}
         >
-          {visible ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+          {visible ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
         </button>
       </div>
       {showStrength && value.length > 0 && <PasswordStrengthMeter strength={strength} />}
