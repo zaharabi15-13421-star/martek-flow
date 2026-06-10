@@ -47,7 +47,7 @@ export function LandingPricingSection() {
             gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
           }}
         >
-        {[...PLANS].sort((a, b) => a.monthly - b.monthly).map((p) => (
+        {orderedPlans().map((p) => (
             <PlanCard key={p.id} plan={p} cycle={cycle} variant="landing" />
           ))}
         </div>
