@@ -372,17 +372,6 @@ function Hero({ onOpenDemo }: { onOpenDemo: () => void }) {
           One AI platform replacing your entire MarTech stack — branding, creative, campaigns,
           CRM, influencers, listening, analytics. <span className="text-foreground">10–15 tools. One unified OS.</span>
         </motion.p>
-        <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-3"
-        >
-          <Link to="/dashboard/intelligence" className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 px-5 h-12 font-medium glow-primary hover:scale-[1.02] transition">
-            Enter Dashboard <ArrowRight className="h-4 w-4" />
-          </Link>
-          <button onClick={onOpenDemo} className="inline-flex items-center gap-2 rounded-lg bg-white/5 border border-white/10 px-5 h-12 font-medium hover:bg-white/10">
-            <Sparkles className="h-4 w-4" /> Register
-          </button>
-        </motion.div>
 
         {/* Floating product mock */}
         <motion.div
