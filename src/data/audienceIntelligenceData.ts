@@ -452,6 +452,42 @@ export const audienceData: Record<string, CountryData> = {
   }
 };
 
+// Stub generator for countries outside the curated DataReportal dataset.
+// Live World Bank data fetch will populate the real population/internet metrics
+// at runtime; platform-specific fields stay zero so they read as "—" downstream.
+import { ISO_3166, flagEmoji } from "./iso3166";
+
+const emptyPlatform: PlatformData = {
+  adReach: 0, reachPercent: 0, monthlyActiveUsers: 0, cpmUSD: 0,
+  bestFormat: "—", peakHours: "—", yoyGrowth: 0,
+  topAgeGroup: "—", genderMale: 50, genderFemale: 50, engagementRate: 0,
+};
+
+export function getCountryData(iso2: string): CountryData {
+  const existing = audienceData[iso2];
+  if (existing) return existing;
+  const iso = ISO_3166.find((c) => c.iso2 === iso2);
+  const name = iso?.name ?? iso2;
+  const iso3 = iso?.iso3 ?? iso2;
+  return {
+    name, flag: flagEmoji(iso2), iso2, iso3,
+    population: 0, internetUsers: 0, internetPenetration: 0,
+    socialMediaUsers: 0, socialPenetration: 0, mobileInternetUsers: 0,
+    urbanPopulationPercent: 0, medianAge: 0, gdpPerCapitaUSD: 0,
+    platforms: {
+      facebook: { ...emptyPlatform },
+      tiktok: { ...emptyPlatform },
+      youtube: { ...emptyPlatform },
+      instagram: { ...emptyPlatform },
+      whatsapp: { monthlyActiveUsers: 0, penetrationPercent: 0, openRate: 0, ctr: 0, cpmUSD: 0, bestFormat: "—", peakHours: "—", yoyGrowth: 0 },
+      linkedin: { ...emptyPlatform },
+    },
+    topCities: [],
+  };
+}
+
+
+
 export const INTEREST_CATEGORIES = [
   { id: "fitness", label: "Fitness Enthusiasts", basePercent: 9.4, trend: "growing" },
   { id: "tech", label: "Tech Early Adopters", basePercent: 13.7, trend: "growing" },

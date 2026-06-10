@@ -3,9 +3,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Download, Search, X, Lock, MapPin, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import {
   audienceData,
+  getCountryData,
   INTEREST_CATEGORIES,
   type CountryData,
 } from "@/data/audienceIntelligenceData";
+import { CountrySelect } from "@/components/audience/CountrySelect";
+
 import { fetchWorldBankData } from "@/services/worldBankAPI";
 import {
   calculateMetrics,
@@ -73,7 +76,7 @@ function AudienceIntelligencePage() {
   const [wbError, setWbError] = useState(false);
 
   // Downstream calculations need concrete values; fall back to neutral baselines when nothing is selected.
-  const country: CountryData = audienceData[selectedCountry] ?? audienceData.BD;
+  const country: CountryData = getCountryData(selectedCountry);
   const effectivePlatform: PlatformId = (selectedPlatform || "all") as PlatformId;
   const primaryInterestId = selectedInterests[0] ?? "business";
   const interest = getInterest(primaryInterestId);
@@ -294,7 +297,7 @@ function TargetAudienceEngine(props: {
     filteredInterests,
   } = props;
 
-  const country = audienceData[selectedCountry];
+  const country = getCountryData(selectedCountry);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [showCustom, setShowCustom] = useState(false);
   const [customFrom, setCustomFrom] = useState<string>(customRange ? customRange.from.toISOString().slice(0, 10) : "");
@@ -416,24 +419,20 @@ function TargetAudienceEngine(props: {
 
       {/* Country selector + platform pills + year pills */}
       <div className="flex flex-wrap items-center gap-3">
-        <select
+        <CountrySelect
           value={selectedCountry}
-          onChange={(e) => onCountryChange(e.target.value)}
-          className="rounded-[10px] px-3 py-2 text-[13px] outline-none"
-          style={{
-            background: TOKENS.input,
-            border: `1px solid ${TOKENS.border}`,
-            color: TOKENS.text,
-            minWidth: 200,
+          onChange={onCountryChange}
+          tokens={{
+            input: TOKENS.input,
+            border: TOKENS.border,
+            text: TOKENS.text,
+            muted: TOKENS.muted,
+            purple: TOKENS.purple,
+            card: TOKENS.card,
           }}
-        >
-          <option value="">Select a country…</option>
-          {countries.map((c) => (
-            <option key={c.iso2} value={c.iso2} style={{ color: "#000", background: "#fff" }}>
-              {c.flag} {c.name}
-            </option>
-          ))}
-        </select>
+          minWidth={220}
+        />
+
 
         <div className="flex flex-wrap gap-1.5">
           {platforms.map((p) => {
