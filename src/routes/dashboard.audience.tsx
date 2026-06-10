@@ -210,7 +210,7 @@ function AudienceIntelligencePage() {
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <InternetPenetrationChart country={country} wbPenetration={metrics.internetPenetration} />
-        <DemographicsPanel country={country} platform={effectivePlatform} />
+        <DemographicsPanel country={country} platform={effectivePlatform} wbData={wbError ? null : wbData} />
         <ConversionMatrix country={country} interestIds={selectedInterests} platform={effectivePlatform} />
       </div>
 
@@ -1225,7 +1225,7 @@ function InternetPenetrationChart({
 }
 
 // ---------- Demographics Panel ----------
-function DemographicsPanel({ country, platform }: { country: CountryData; platform: PlatformId }) {
+function DemographicsPanel({ country, platform, wbData }: { country: CountryData; platform: PlatformId; wbData: import("@/types/audience").WorldBankData | null }) {
   // Platform-specific age distributions ensure tab switches visibly shift demographics.
   const AGE_BY_PLATFORM: Record<string, [number, number, number, number]> = {
     all:       [28, 38, 22, 12],
@@ -1236,19 +1236,45 @@ function DemographicsPanel({ country, platform }: { country: CountryData; platfo
     whatsapp:  [20, 40, 28, 12],
     linkedin:  [ 8, 42, 34, 16],
   };
-  const ageBuckets = AGE_BY_PLATFORM[platform] ?? AGE_BY_PLATFORM.all;
+  const basePlatformAges = AGE_BY_PLATFORM[platform] ?? AGE_BY_PLATFORM.all;
+
+  // Country-driven age skew from World Bank working-age share (SP.POP.1564.TO.ZS).
+  // Younger populations (lower working-age %) shift weight toward 16–24; older shift toward 45+.
+  const workingAge = wbData?.workingAgePercent ?? 65;
+  const youthSkew = (70 - workingAge) / 70; // > 0 = younger country, < 0 = older
+  const skewed: [number, number, number, number] = [
+    Math.max(2, basePlatformAges[0] * (1 + youthSkew * 0.6)),
+    basePlatformAges[1] * (1 + youthSkew * 0.15),
+    basePlatformAges[2] * (1 - youthSkew * 0.25),
+    Math.max(2, basePlatformAges[3] * (1 - youthSkew * 0.7)),
+  ];
+  const skewSum = skewed.reduce((a, b) => a + b, 0) || 1;
+  const ageBuckets: [number, number, number, number] = [
+    (skewed[0] / skewSum) * 100,
+    (skewed[1] / skewSum) * 100,
+    (skewed[2] / skewSum) * 100,
+    (skewed[3] / skewSum) * 100,
+  ];
 
   const ref =
     platform === "all" || platform === "whatsapp"
       ? country.platforms.facebook
       : (country.platforms[platform as Exclude<PlatformId, "all" | "whatsapp">] as import("@/data/audienceIntelligenceData").PlatformData);
 
-  const male = platform === "all"
-    ? Math.round((country.platforms.facebook.genderMale + country.platforms.instagram.genderMale + country.platforms.tiktok.genderMale + country.platforms.youtube.genderMale) / 4)
-    : ref.genderMale || 50;
-  const female = 100 - male;
-  const urban = country.urbanPopulationPercent;
-  const rural = 100 - urban;
+  // WB female% (SP.POP.TOTL.FE.ZS) is the country baseline; platform skew layers on top.
+  const wbFemale = wbData?.femalePercent;
+  const countryFemaleBase = wbFemale && wbFemale > 0 ? wbFemale : 50;
+  const platformFemaleSkew =
+    platform === "all"
+      ? ((country.platforms.facebook.genderFemale + country.platforms.instagram.genderFemale + country.platforms.tiktok.genderFemale + country.platforms.youtube.genderFemale) / 4) - 50
+      : (ref.genderFemale || 50) - 50;
+  const female = Math.max(5, Math.min(95, Math.round(countryFemaleBase + platformFemaleSkew * 0.6)));
+  const male = 100 - female;
+
+  // WB urban % (SP.URB.TOTL.IN.ZS) preferred; fall back to dataset value.
+  const urbanSrc = wbData?.urbanPopulation;
+  const urban = urbanSrc && urbanSrc > 0 ? urbanSrc : country.urbanPopulationPercent;
+  const rural = Math.max(0, 100 - urban);
 
   const bars: Array<{ label: string; value: number; color: string }> = [
     { label: "Age 16–24", value: ageBuckets[0], color: TOKENS.purple },

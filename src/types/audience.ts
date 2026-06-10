@@ -5,6 +5,8 @@ export interface WorldBankData {
   population: number;
   urbanPopulation: number;
   gdpPerCapita: number;
+  femalePercent?: number;
+  workingAgePercent?: number;
   lastUpdated: string;
 }
 
