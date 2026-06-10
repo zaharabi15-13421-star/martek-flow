@@ -445,9 +445,9 @@ function Marquee() {
   return (
     <section className="relative py-12 border-y border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent">
       <div className="text-center mb-6 px-6">
-        <div className="text-[11px] uppercase tracking-[0.25em] text-indigo-300/80 font-semibold mb-2">The Operating System for Modern Brands</div>
+        <div className="text-[11px] uppercase tracking-[0.25em] text-indigo-300/80 font-semibold mb-2">Unified Brand and Marketing Intelligence</div>
         <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-          One Platform. <span className="bg-gradient-to-r from-indigo-300 via-purple-300 to-fuchsia-300 bg-clip-text text-transparent">Thirteen Superpowers.</span>
+          Our Core Intelligence for Every Brand and Marketing <span className="bg-gradient-to-r from-indigo-300 via-purple-300 to-fuchsia-300 bg-clip-text text-transparent">Every Decision.</span>
         </h3>
       </div>
       <div className="overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]">
