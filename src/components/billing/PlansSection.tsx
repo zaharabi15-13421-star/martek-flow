@@ -17,6 +17,14 @@ export function LandingPricingSection() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center">
           <h2
+            className="text-white"
+            style={{
+              fontWeight: 800,
+              fontSize: "clamp(36px, 5vw, 52px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.02em",
+            }}
+          >
             className="mt-3 text-white"
             style={{
               fontWeight: 800,
