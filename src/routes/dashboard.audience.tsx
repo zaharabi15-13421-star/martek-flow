@@ -297,7 +297,7 @@ function TargetAudienceEngine(props: {
     filteredInterests,
   } = props;
 
-  const country = audienceData[selectedCountry];
+  const country = getCountryData(selectedCountry);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [showCustom, setShowCustom] = useState(false);
   const [customFrom, setCustomFrom] = useState<string>(customRange ? customRange.from.toISOString().slice(0, 10) : "");
