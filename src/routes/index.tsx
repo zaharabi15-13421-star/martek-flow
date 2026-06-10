@@ -513,8 +513,10 @@ function ReplacementCalculator() {
   const [enabled, setEnabled] = useState<Record<string, boolean>>(
     Object.fromEntries(REPLACED_TOOLS.map((t) => [t.name, true]))
   );
+  const { cycle, setCycle } = useBillingToggle();
+  const currentPlan = PLANS.find((p) => p.id === "starter") ?? PLANS[1];
   const total = REPLACED_TOOLS.reduce((s, t) => s + (enabled[t.name] ? t.cost : 0), 0);
-  const ourPrice = 599;
+  const ourPrice = cycle === "annual" ? currentPlan.annualPerMo : currentPlan.monthly;
   const savings = Math.max(total - ourPrice, 0);
   const pct = total ? Math.round((savings / total) * 100) : 0;
 
