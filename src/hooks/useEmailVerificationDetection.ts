@@ -86,6 +86,21 @@ export function useEmailVerificationDetection({ userId, email, enabled }: Option
     void pollOnce();
     pollInterval = setInterval(pollOnce, POLL_INTERVAL_MS);
 
+    // Mechanism 4: localStorage 'storage' event (fires in other tabs when
+    // the verification tab writes the supabase session). Also re-check on
+    // window focus, which catches cases where the user switches back to
+    // this tab before any of the other mechanisms fire.
+    storageHandler = (e: StorageEvent) => {
+      if (!e.key) return;
+      if (!/^sb-.*-auth-token/.test(e.key)) return;
+      if (!e.newValue) return;
+      void pollOnce();
+    };
+    window.addEventListener("storage", storageHandler);
+
+    focusHandler = () => { void pollOnce(); };
+    window.addEventListener("focus", focusHandler);
+
     return () => {
       redirectTriggered.current = true;
       stopAll();
