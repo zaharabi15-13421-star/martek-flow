@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { DASHBOARD_PATH } from "@/lib/auth-redirects";
 
 export const AUTH_BROADCAST_CHANNEL = "brandsync-auth-channel";
-const POLL_INTERVAL_MS = 5000;
+const POLL_INTERVAL_MS = 3000;
 const POLL_MAX_MS = 10 * 60 * 1000;
 
 interface Options {
