@@ -71,7 +71,7 @@ export function DashboardPlansSection({
   onSwitch?: (plan: Plan) => void;
 }) {
   const { cycle, setCycle } = useBillingToggle();
-  const visible = [...PLANS].sort((a, b) => a.monthly - b.monthly);
+  const visible = orderedPlans();
 
   return (
     <div>
