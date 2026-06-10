@@ -47,11 +47,6 @@ const REPLACED_TOOLS = [
   { name: "Hotjar", cost: 99 },
 ];
 
-const TIERS = [
-  { name: "Starter", price: 99, blurb: "For SMEs getting started", features: ["3 social channels", "5K AI credits / mo", "1 brand workspace", "Basic analytics", "Email support"], accent: "from-slate-700 to-slate-900" },
-  { name: "Growth", price: 599, popular: true, blurb: "For mid-market growth teams", features: ["All channels + WhatsApp", "75K AI credits / mo", "Multi-language (BD + USA)", "Campaign Automation", "Predictive simulation", "Priority support"], accent: "from-indigo-500 to-purple-600" },
-  { name: "Enterprise", price: 4900, blurb: "For agencies & global brands", features: ["Unlimited everything", "White-label dashboard", "Multi-brand management", "API access + SSO", "Dedicated CSM", "SLA & DPA"], accent: "from-purple-600 to-fuchsia-600" },
-];
 
 function Landing() {
   const [demoOpen, setDemoOpen] = useState(false);
