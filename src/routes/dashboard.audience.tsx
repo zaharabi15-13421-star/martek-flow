@@ -419,24 +419,20 @@ function TargetAudienceEngine(props: {
 
       {/* Country selector + platform pills + year pills */}
       <div className="flex flex-wrap items-center gap-3">
-        <select
+        <CountrySelect
           value={selectedCountry}
-          onChange={(e) => onCountryChange(e.target.value)}
-          className="rounded-[10px] px-3 py-2 text-[13px] outline-none"
-          style={{
-            background: TOKENS.input,
-            border: `1px solid ${TOKENS.border}`,
-            color: TOKENS.text,
-            minWidth: 200,
+          onChange={onCountryChange}
+          tokens={{
+            input: TOKENS.input,
+            border: TOKENS.border,
+            text: TOKENS.text,
+            muted: TOKENS.muted,
+            purple: TOKENS.purple,
+            card: TOKENS.card,
           }}
-        >
-          <option value="">Select a country…</option>
-          {countries.map((c) => (
-            <option key={c.iso2} value={c.iso2} style={{ color: "#000", background: "#fff" }}>
-              {c.flag} {c.name}
-            </option>
-          ))}
-        </select>
+          minWidth={220}
+        />
+
 
         <div className="flex flex-wrap gap-1.5">
           {platforms.map((p) => {
