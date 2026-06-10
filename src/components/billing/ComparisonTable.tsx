@@ -1,10 +1,10 @@
 import { Check, X, Zap, Folder, Users, MessageCircle, Sparkles, Megaphone, BarChart3, Atom, Tag, Headphones } from "lucide-react";
-import type { ComponentType } from "react";
+import type { LucideIcon } from "lucide-react";
 
 type CellValue = string | boolean;
 
 interface Row {
-  icon: ComponentType<{ className?: string }>;
+  icon: LucideIcon;
   label: string;
   values: [CellValue, CellValue, CellValue, CellValue, CellValue];
 }
