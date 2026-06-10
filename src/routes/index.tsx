@@ -491,12 +491,12 @@ function Marquee() {
 function Bento() {
   return (
     <section id="features" className="relative max-w-7xl mx-auto px-6 py-16">
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
-        <div className="max-w-2xl">
+      <div className="flex flex-col items-center text-center gap-4 mb-10">
+        <div>
           <div className="text-[11px] uppercase tracking-widest text-indigo-300/80">The Platform</div>
-          <h2 className="mt-2 text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight">Everything you need. <span className="text-gradient">One brain.</span></h2>
+          <h2 className="mt-2 text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight">Everything you need in <span className="text-gradient">One brain</span></h2>
         </div>
-        <p className="text-muted-foreground lg:max-w-md lg:text-right">Every team. Every channel. Every metric — orchestrated by a single AI that knows your brand inside out.</p>
+        <p className="text-muted-foreground max-w-2xl">Every team Every channel Every metric — orchestrated by a single AI that knows your brand inside out</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
