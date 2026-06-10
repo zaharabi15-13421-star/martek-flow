@@ -12,6 +12,8 @@ import { AuthModal } from "@/components/auth/AuthModal";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { LandingPricingSection } from "@/components/billing/PlansSection";
+import { BillingToggle } from "@/components/billing/BillingToggle";
+import { PLANS, useBillingToggle } from "@/lib/plans";
 import type { AuthTab } from "@/types/auth";
 
 export const Route = createFileRoute("/")({
