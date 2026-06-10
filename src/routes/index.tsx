@@ -441,17 +441,29 @@ function Hero({ onOpenDemo }: { onOpenDemo: () => void }) {
 }
 
 function Marquee() {
-  const items = [...INTEGRATIONS, ...INTEGRATIONS];
+  const items = [...CORE_FEATURES, ...CORE_FEATURES];
   return (
-    <section className="relative py-10 border-y border-white/5 bg-white/[0.02]">
-      <div className="text-center text-[11px] uppercase tracking-widest text-muted-foreground mb-4">
-        Native integrations across every channel
+    <section className="relative py-12 border-y border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent">
+      <div className="text-center mb-6 px-6">
+        <div className="text-[11px] uppercase tracking-[0.25em] text-indigo-300/80 font-semibold mb-2">The Operating System for Modern Brands</div>
+        <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+          One Platform. <span className="bg-gradient-to-r from-indigo-300 via-purple-300 to-fuchsia-300 bg-clip-text text-transparent">Thirteen Superpowers.</span>
+        </h3>
       </div>
-      <div className="overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
-        <div className="flex gap-12 animate-marquee whitespace-nowrap">
-          {items.map((n, i) => (
-            <div key={i} className="text-lg font-medium text-foreground/60">{n}</div>
-          ))}
+      <div className="overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]">
+        <div className="flex gap-4 animate-marquee whitespace-nowrap w-max">
+          {items.map((f, i) => {
+            const Icon = f.icon;
+            return (
+              <div
+                key={i}
+                className="group flex items-center gap-2.5 px-5 py-3 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-sm hover:border-white/25 hover:bg-white/[0.08] transition-all duration-300 shrink-0"
+              >
+                <Icon className={`w-4 h-4 ${f.accent} group-hover:scale-110 transition-transform`} />
+                <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground">{f.label}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
