@@ -16,12 +16,6 @@ export function LandingPricingSection() {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center">
-          <div
-            className="text-[11px] font-bold uppercase"
-            style={{ letterSpacing: "0.12em", color: "#7c3aed" }}
-          >
-            Pricing
-          </div>
           <h2
             className="mt-3 text-white"
             style={{
