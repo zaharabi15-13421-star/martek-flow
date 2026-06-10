@@ -4,7 +4,8 @@ import {
   Sparkles, Brain, Megaphone, Users, Contact, Star, Shield, BarChart3,
   Layers, Atom, ArrowRight, Check, Zap, TrendingDown, X, Lock, LayoutDashboard, LogOut,
   Plug, Fingerprint, BookOpen, Radar, Wand2, Radio, Workflow, LineChart, FlaskConical, Handshake,
-  Mail
+  Mail, Image as ImageIcon, LayoutTemplate, Shirt, Box, Camera, PenLine, MessageSquareQuote,
+  Hash, FileText, MousePointerClick, Clapperboard, LayoutGrid
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -21,17 +22,31 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const MODULES = [
-  { icon: Brain, title: "Brand Intelligence", desc: "Permanent AI memory of your voice, archetype & guidelines.", span: "md:col-span-2 md:row-span-2", accent: "indigo" },
-  { icon: Sparkles, title: "Creative Engine", desc: "Multi-platform content production studio.", accent: "purple" },
-  { icon: Megaphone, title: "Campaign Automation", desc: "Cross-channel deployment with auto-pilot.", accent: "indigo" },
-  { icon: Users, title: "Audience Intelligence", desc: "Predictive segments. Geo hot-spots.", accent: "emerald" },
-  { icon: Contact, title: "Lead & CRM", desc: "Unified inbox. AI lead scoring.", span: "md:col-span-2", accent: "indigo" },
-  { icon: Star, title: "Influencer OS", desc: "Vet creators. Catch fake followers.", accent: "purple" },
-  { icon: Shield, title: "Reputation Radar", desc: "Crisis alerts & social listening.", accent: "rose" },
-  { icon: BarChart3, title: "Unified Analytics", desc: "Revenue attribution + AI forecast.", accent: "emerald" },
-  { icon: Atom, title: "Simulation Engine", desc: "Predict ROI before you spend a cent.", accent: "purple" },
-  { icon: Layers, title: "Collaboration", desc: "Approvals, calendar, asset library.", accent: "indigo" },
+const SERVICES: { icon: any; value: string; name: string }[] = [
+  { icon: Fingerprint, value: "Your brand voice locked in forever", name: "Brand DNA" },
+  { icon: Brain, value: "AI that knows your brand better than anyone", name: "Brand Intelligence" },
+  { icon: BookOpen, value: "Always on-brand without lifting a finger", name: "Brand Guideline Generator" },
+  { icon: Radar, value: "Know exactly who to talk to and when", name: "Audience Intelligence" },
+  { icon: Radio, value: "Stay ahead of every conversation about your brand", name: "Reputation & Listening" },
+  { icon: Wand2, value: "Launch stunning content at the speed of thought", name: "Creative Engine" },
+  { icon: ImageIcon, value: "Visuals that stop the scroll every single time", name: "Image Lab" },
+  { icon: LayoutTemplate, value: "Professional designs created in seconds", name: "Poster Studio" },
+  { icon: Shirt, value: "Let your customers experience before they buy", name: "Virtual Try-On" },
+  { icon: Box, value: "Bring your products to life in any space", name: "Product Holography" },
+  { icon: Camera, value: "Studio-quality shots without the studio", name: "Product Photography" },
+  { icon: PenLine, value: "Thought leadership written while you sleep", name: "Blog Pilot" },
+  { icon: MessageSquareQuote, value: "Words that turn scrollers into buyers", name: "Caption Craft" },
+  { icon: Hash, value: "Reach the right audience on every platform", name: "Hashtag Wizard" },
+  { icon: FileText, value: "Copy that converts browsers into customers", name: "Product Description" },
+  { icon: MousePointerClick, value: "Thumbnails that earn the click every time", name: "Thumbnail Generator" },
+  { icon: Clapperboard, value: "Video scripts that hook and hold attention", name: "Smart Script Writer" },
+  { icon: LayoutGrid, value: "Start fast finish beautifully every time", name: "Template Gallery" },
+  { icon: Workflow, value: "Campaigns that run grow and optimize themselves", name: "Campaign Automation" },
+  { icon: Star, value: "Find manage and measure creators with confidence", name: "Influencer OS" },
+  { icon: Contact, value: "Turn every touchpoint into a sales opportunity", name: "Lead & CRM" },
+  { icon: LineChart, value: "See what's working across every channel at once", name: "Unified Analytics" },
+  { icon: FlaskConical, value: "Know your ROI before you spend a single dollar", name: "Simulation Engine" },
+  { icon: Handshake, value: "Your whole team moving as one unified force", name: "Collaboration" },
 ];
 
 const CORE_FEATURES: { icon: any; label: string; accent: string }[] = [
@@ -474,34 +489,27 @@ function Marquee() {
 }
 
 function Bento() {
-  const accentMap: Record<string, string> = {
-    indigo: "from-indigo-500/20 text-indigo-300",
-    purple: "from-purple-500/20 text-purple-300",
-    emerald: "from-emerald-500/20 text-emerald-300",
-    rose: "from-rose-500/20 text-rose-300",
-  };
   return (
     <section id="features" className="relative max-w-7xl mx-auto px-6 py-24">
       <div className="text-center mb-12">
         <div className="text-[11px] uppercase tracking-widest text-indigo-300/80">The Platform</div>
-        <h2 className="mt-2 text-3xl md:text-5xl font-semibold tracking-tight">10 Modules. <span className="text-gradient">One brain.</span></h2>
+        <h2 className="mt-2 text-3xl md:text-5xl font-semibold tracking-tight">Everything you need. <span className="text-gradient">One brain.</span></h2>
         <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">Every team. Every channel. Every metric — orchestrated by a single AI that knows your brand inside out.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[180px] gap-4">
-        {MODULES.map((m) => {
-          const Icon = m.icon;
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {SERVICES.map((s) => {
+          const Icon = s.icon;
           return (
             <motion.div
-              key={m.title}
+              key={s.name}
               whileHover={{ y: -4 }}
-              className={`relative group glass rounded-2xl p-6 overflow-hidden ${m.span ?? ""}`}
+              className="relative group glass rounded-2xl p-6 overflow-hidden min-h-[180px] flex flex-col"
             >
-              <div className={`absolute -top-16 -right-16 h-40 w-40 rounded-full blur-3xl bg-gradient-to-br opacity-50 ${accentMap[m.accent].split(" ")[0]}`} />
-              <Icon className={`h-6 w-6 ${accentMap[m.accent].split(" ")[1]}`} />
-              <div className="mt-4 text-lg font-semibold">{m.title}</div>
-              <p className="mt-1 text-sm text-muted-foreground">{m.desc}</p>
-              <div className="absolute bottom-4 right-5 text-xs text-muted-foreground/70 opacity-0 group-hover:opacity-100 transition flex items-center gap-1">Open <ArrowRight className="h-3 w-3" /></div>
+              <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-3xl bg-gradient-to-br from-purple-500/20 opacity-50" />
+              <Icon className="h-6 w-6 text-purple-300" />
+              <div className="mt-5 text-lg md:text-xl font-semibold leading-snug text-foreground">{s.value}</div>
+              <div className="mt-auto pt-4 text-xs uppercase tracking-wider text-muted-foreground/70">{s.name}</div>
             </motion.div>
           );
         })}
