@@ -25,25 +25,39 @@ export function PlanCard({ plan, cycle, variant = "landing", isCurrent, onAction
         background: "#111827",
         borderRadius: 16,
         padding,
-        border: isPopular
-          ? "2px solid rgba(124,58,237,0.5)"
-          : "1px solid rgba(255,255,255,0.06)",
-        boxShadow: isPopular ? "0 0 40px rgba(124,58,237,0.15)" : "none",
+        border: isCurrent
+          ? "2px solid rgba(16,185,129,0.5)"
+          : isPopular
+            ? "2px solid rgba(124,58,237,0.5)"
+            : "1px solid rgba(255,255,255,0.06)",
+        boxShadow: isCurrent
+          ? "0 0 40px rgba(16,185,129,0.15)"
+          : isPopular
+            ? "0 0 40px rgba(124,58,237,0.15)"
+            : "none",
       }}
       onMouseEnter={(e) => {
-        if (!isPopular) {
+        if (!isPopular && !isCurrent) {
           e.currentTarget.style.background = "#1a2035";
           e.currentTarget.style.borderColor = "rgba(124,58,237,0.3)";
         }
       }}
       onMouseLeave={(e) => {
-        if (!isPopular) {
+        if (!isPopular && !isCurrent) {
           e.currentTarget.style.background = "#111827";
           e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
         }
       }}
     >
-      {isPopular && (
+      {isCurrent && (
+        <div
+          className="absolute left-1/2 -translate-x-1/2 -top-3 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white"
+          style={{ background: "#10b981", borderRadius: 9999 }}
+        >
+          Current Plan
+        </div>
+      )}
+      {isPopular && !isCurrent && (
         <div
           className="absolute left-1/2 -translate-x-1/2 -top-3 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white"
           style={{ background: "#7c3aed", borderRadius: 9999 }}
@@ -56,7 +70,7 @@ export function PlanCard({ plan, cycle, variant = "landing", isCurrent, onAction
         className="text-[11px] font-bold uppercase mb-3"
         style={{
           letterSpacing: "0.12em",
-          color: isPopular || plan.id === "enterprise" ? "#7c3aed" : "#9ca3af",
+          color: isCurrent ? "#10b981" : isPopular || plan.id === "enterprise" ? "#7c3aed" : "#9ca3af",
         }}
       >
         {plan.name}
@@ -130,18 +144,21 @@ export function PlanCard({ plan, cycle, variant = "landing", isCurrent, onAction
         type="button"
         onClick={() => onAction?.(plan)}
         disabled={isCurrent}
-        className="mt-6 w-full font-semibold text-white transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6366f1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0e1a] hover:opacity-90 active:scale-[0.99] disabled:cursor-default disabled:hover:opacity-100 disabled:active:scale-100"
+        className="mt-6 w-full font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6366f1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0e1a] hover:opacity-90 active:scale-[0.99] disabled:cursor-default disabled:hover:opacity-100 disabled:active:scale-100"
         style={{
           borderRadius: 10,
           height: 48,
           fontSize: 15,
-          background: isPopular
-            ? "linear-gradient(135deg, #7c3aed, #6366f1, #3b82f6)"
-            : "#1f2937",
+          color: isCurrent ? "#fff" : "#fff",
+          background: isCurrent
+            ? "#059669"
+            : isPopular
+              ? "linear-gradient(135deg, #7c3aed, #6366f1, #3b82f6)"
+              : "#1f2937",
           pointerEvents: isCurrent ? "none" : undefined,
         }}
       >
-        {isCurrent ? "Current plan" : cta}
+        {isCurrent ? "Current Plan" : cta}
       </button>
     </div>
   );

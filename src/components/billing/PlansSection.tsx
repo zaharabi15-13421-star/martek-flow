@@ -42,7 +42,7 @@ export function LandingPricingSection() {
           }}
         >
         {[...PLANS].sort((a, b) => a.monthly - b.monthly).map((p) => (
-            <PlanCard key={p.id} plan={p} cycle={cycle} variant="landing" />
+            <PlanCard key={p.id} plan={p} cycle={cycle} variant="landing" isCurrent={p.id === "free"} />
           ))}
         </div>
 
