@@ -65,7 +65,7 @@ export function DashboardPlansSection({
   onSwitch?: (plan: Plan) => void;
 }) {
   const { cycle, setCycle } = useBillingToggle();
-  const visible = PLANS.filter((p) => ["starter", "growth", "enterprise"].includes(p.id));
+  const visible = PLANS;
 
   return (
     <div>
