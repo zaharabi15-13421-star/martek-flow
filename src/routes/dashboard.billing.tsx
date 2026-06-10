@@ -57,8 +57,8 @@ function Billing() {
           <div className="text-[11px] font-bold uppercase" style={{ letterSpacing: "0.12em", color: "#7c3aed" }}>
             Current Plan
           </div>
-          <div className="mt-1 text-xl font-semibold text-white">Growth · $599/mo</div>
-          <div className="text-xs" style={{ color: "#9ca3af" }}>Renews May 24, 2026</div>
+          <div className="mt-1 text-xl font-semibold text-white">Free</div>
+          <div className="text-xs" style={{ color: "#9ca3af" }}>Forever free</div>
         </div>
         <div className="flex-1 min-w-[220px]">
           <div className="flex justify-between text-[13px]" style={{ color: "#9ca3af" }}>
