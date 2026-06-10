@@ -4,6 +4,12 @@ import { useBillingToggle } from "@/lib/plans";
 import { BillingToggle } from "./BillingToggle";
 import { PlanCard } from "./PlanCard";
 
+const PLAN_ORDER: Plan["id"][] = ["starter", "pro", "growth", "enterprise"];
+const orderedPlans = (): Plan[] =>
+  PLAN_ORDER
+    .map((id) => PLANS.find((p) => p.id === id))
+    .filter((p): p is Plan => Boolean(p));
+
 export function LandingPricingSection() {
   const { cycle, setCycle } = useBillingToggle();
   return (
