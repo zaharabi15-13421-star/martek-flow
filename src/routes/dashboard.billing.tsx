@@ -100,7 +100,7 @@ function Billing() {
           </div>
         ) : (
           <DashboardPlansSection
-            currentPlanId="growth"
+            currentPlanId="free"
             onSwitch={(p) => {
               toast.success("Redirecting to checkout…", { description: `Switching to ${p.name}` });
             }}
