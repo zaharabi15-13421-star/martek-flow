@@ -22,12 +22,16 @@ export function useEmailVerificationDetection({ userId, email, enabled }: Option
     let channel: BroadcastChannel | null = null;
     let pollInterval: ReturnType<typeof setInterval> | null = null;
     let unsubscribe: (() => void) | null = null;
+    let storageHandler: ((e: StorageEvent) => void) | null = null;
+    let focusHandler: (() => void) | null = null;
     const pollStartTime = Date.now();
 
     const stopAll = () => {
       try { channel?.close(); } catch { /* noop */ }
       try { unsubscribe?.(); } catch { /* noop */ }
       try { if (pollInterval) clearInterval(pollInterval); } catch { /* noop */ }
+      try { if (storageHandler) window.removeEventListener("storage", storageHandler); } catch { /* noop */ }
+      try { if (focusHandler) window.removeEventListener("focus", focusHandler); } catch { /* noop */ }
     };
 
     const triggerSilentRedirect = () => {
