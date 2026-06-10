@@ -4,6 +4,12 @@ import { useBillingToggle } from "@/lib/plans";
 import { BillingToggle } from "./BillingToggle";
 import { PlanCard } from "./PlanCard";
 
+const PLAN_ORDER: Plan["id"][] = ["starter", "pro", "growth", "enterprise"];
+const orderedPlans = (): Plan[] =>
+  PLAN_ORDER
+    .map((id) => PLANS.find((p) => p.id === id))
+    .filter((p): p is Plan => Boolean(p));
+
 export function LandingPricingSection() {
   const { cycle, setCycle } = useBillingToggle();
   return (
@@ -41,7 +47,7 @@ export function LandingPricingSection() {
             gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
           }}
         >
-        {[...PLANS].sort((a, b) => a.monthly - b.monthly).map((p) => (
+        {orderedPlans().map((p) => (
             <PlanCard key={p.id} plan={p} cycle={cycle} variant="landing" />
           ))}
         </div>
@@ -65,7 +71,7 @@ export function DashboardPlansSection({
   onSwitch?: (plan: Plan) => void;
 }) {
   const { cycle, setCycle } = useBillingToggle();
-  const visible = [...PLANS].sort((a, b) => a.monthly - b.monthly);
+  const visible = orderedPlans();
 
   return (
     <div>
