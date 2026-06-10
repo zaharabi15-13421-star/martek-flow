@@ -76,7 +76,7 @@ function AudienceIntelligencePage() {
   const [wbError, setWbError] = useState(false);
 
   // Downstream calculations need concrete values; fall back to neutral baselines when nothing is selected.
-  const country: CountryData = audienceData[selectedCountry] ?? audienceData.BD;
+  const country: CountryData = getCountryData(selectedCountry);
   const effectivePlatform: PlatformId = (selectedPlatform || "all") as PlatformId;
   const primaryInterestId = selectedInterests[0] ?? "business";
   const interest = getInterest(primaryInterestId);
