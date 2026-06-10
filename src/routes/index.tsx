@@ -75,8 +75,8 @@ function Landing() {
       <Hero onOpenDemo={() => openAuth("signup")} />
       <Marquee />
       <Bento />
-      <ReplacementCalculator />
       <LandingPricingSection />
+      <ReplacementCalculator />
       <CTA />
       <Footer />
       <AuthModal open={demoOpen} onOpenChange={setDemoOpen} initialTab={authTab} />
