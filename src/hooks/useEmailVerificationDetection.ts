@@ -22,12 +22,16 @@ export function useEmailVerificationDetection({ userId, email, enabled }: Option
     let channel: BroadcastChannel | null = null;
     let pollInterval: ReturnType<typeof setInterval> | null = null;
     let unsubscribe: (() => void) | null = null;
+    let storageHandler: ((e: StorageEvent) => void) | null = null;
+    let focusHandler: (() => void) | null = null;
     const pollStartTime = Date.now();
 
     const stopAll = () => {
       try { channel?.close(); } catch { /* noop */ }
       try { unsubscribe?.(); } catch { /* noop */ }
       try { if (pollInterval) clearInterval(pollInterval); } catch { /* noop */ }
+      try { if (storageHandler) window.removeEventListener("storage", storageHandler); } catch { /* noop */ }
+      try { if (focusHandler) window.removeEventListener("focus", focusHandler); } catch { /* noop */ }
     };
 
     const triggerSilentRedirect = () => {
@@ -81,6 +85,21 @@ export function useEmailVerificationDetection({ userId, email, enabled }: Option
     };
     void pollOnce();
     pollInterval = setInterval(pollOnce, POLL_INTERVAL_MS);
+
+    // Mechanism 4: localStorage 'storage' event (fires in other tabs when
+    // the verification tab writes the supabase session). Also re-check on
+    // window focus, which catches cases where the user switches back to
+    // this tab before any of the other mechanisms fire.
+    storageHandler = (e: StorageEvent) => {
+      if (!e.key) return;
+      if (!/^sb-.*-auth-token/.test(e.key)) return;
+      if (!e.newValue) return;
+      void pollOnce();
+    };
+    window.addEventListener("storage", storageHandler);
+
+    focusHandler = () => { void pollOnce(); };
+    window.addEventListener("focus", focusHandler);
 
     return () => {
       redirectTriggered.current = true;
