@@ -683,8 +683,28 @@ function Footer() {
   ];
 
   return (
-    <footer className="border-t border-white/5 bg-[var(--app-bg)]">
-      <div className="mx-auto max-w-7xl px-6 py-16">
+    <footer className="relative">
+      {/* Smooth transition gradient wash at top */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-32 -translate-y-full"
+        style={{
+          background: "linear-gradient(to bottom, transparent, rgba(7,11,29,0.85))",
+        }}
+      />
+
+      {/* Gradient accent line */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[var(--bs-violet)]/40 to-transparent" />
+
+      {/* Subtle top glow */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 opacity-40"
+        style={{
+          background: "radial-gradient(ellipse 60% 100% at 50% 0%, rgba(124,58,237,0.12), transparent)",
+        }}
+      />
+
+      <div className="relative bg-[#070b1d]">
+        <div className="mx-auto max-w-7xl px-6 py-16">
         {/* Main footer grid: Brand + 4 nav columns + Contact */}
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-6">
           {/* Brand Column */}
@@ -777,6 +797,7 @@ function Footer() {
             )}
           </div>
         </div>
+      </div>
       </div>
     </footer>
   );
