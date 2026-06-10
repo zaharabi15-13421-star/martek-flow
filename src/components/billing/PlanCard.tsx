@@ -29,7 +29,6 @@ export function PlanCard({ plan, cycle, variant = "landing", isCurrent, onAction
           ? "2px solid rgba(124,58,237,0.5)"
           : "1px solid rgba(255,255,255,0.06)",
         boxShadow: isPopular ? "0 0 40px rgba(124,58,237,0.15)" : "none",
-        order: isPopular && variant === "landing" ? -1 : undefined,
       }}
       onMouseEnter={(e) => {
         if (!isPopular) {
