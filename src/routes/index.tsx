@@ -10,6 +10,7 @@ import { ThemeToggle } from "@/components/app/ThemeToggle";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
+import { LandingPricingSection } from "@/components/billing/PlansSection";
 import type { AuthTab } from "@/types/auth";
 
 export const Route = createFileRoute("/")({
@@ -63,7 +64,7 @@ function Landing() {
       <Marquee />
       <Bento />
       <ReplacementCalculator />
-      <Pricing />
+      <LandingPricingSection />
       <CTA />
       <Footer />
       <AuthModal open={demoOpen} onOpenChange={setDemoOpen} initialTab={authTab} />
@@ -559,32 +560,6 @@ function ReplacementCalculator() {
   );
 }
 
-function Pricing() {
-  return (
-    <section id="pricing" className="relative max-w-7xl mx-auto px-6 py-24">
-      <div className="text-center mb-12">
-        <div className="text-[11px] uppercase tracking-widest text-purple-300/80">Pricing</div>
-        <h2 className="mt-2 text-3xl md:text-5xl font-semibold tracking-tight">Pay for outcomes, not licenses.</h2>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {TIERS.map((t) => (
-          <div key={t.name} className={`relative rounded-2xl p-6 glass ${t.popular ? "ring-1 ring-indigo-400/40 glow-primary" : ""}`}>
-            {t.popular && <div className="absolute -top-3 left-6 text-[10px] uppercase tracking-widest bg-gradient-to-r from-indigo-500 to-purple-600 px-2 py-0.5 rounded">Most Popular</div>}
-            <div className={`inline-block text-xs uppercase tracking-widest bg-gradient-to-r ${t.accent} bg-clip-text text-transparent`}>{t.name}</div>
-            <div className="mt-2 text-4xl font-semibold">${t.price}<span className="text-sm text-muted-foreground font-normal">/mo</span></div>
-            <div className="text-sm text-muted-foreground">{t.blurb}</div>
-            <ul className="mt-5 space-y-2 text-sm">
-              {t.features.map((f) => <li key={f} className="flex items-start gap-2"><Check className="h-4 w-4 text-emerald-400 mt-0.5" /> {f}</li>)}
-            </ul>
-            <Link to="/dashboard/billing" className={`mt-6 inline-flex items-center justify-center w-full rounded-lg h-11 text-sm font-medium ${t.popular ? "bg-gradient-to-r from-indigo-500 to-purple-600" : "bg-white/5 border border-white/10 hover:bg-white/10"}`}>
-              {t.popular ? "Start free trial" : "Choose plan"}
-            </Link>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 function CTA() {
   return (
