@@ -54,6 +54,7 @@ export const PLANS: Plan[] = [
     annualPerMo: 41,
     annualBilled: 492,
     savePct: 17,
+    popular: true,
     ctaMonthly: "Choose Starter",
     ctaAnnual: "Start annual plan",
     features: [
