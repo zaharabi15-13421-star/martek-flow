@@ -67,10 +67,10 @@ const NAV = [
   { group: "Intelligence", items: [
     { to: "/dashboard/intelligence", label: "Brand Intelligence", icon: Brain },
     { to: "/dashboard/audience", label: "Audience Intelligence", icon: Users },
-    { to: "/dashboard/reputation", label: "Reputation & Listening", icon: Shield },
   ]},
   { group: "Execution", items: [
     { to: "/dashboard/creative", label: "Creative Engine", icon: Sparkles, creative: true as const },
+    { to: "/dashboard/reputation", label: "Reputation & Listening", icon: Shield },
     { to: "/dashboard/campaigns", label: "Campaign Automation", icon: Megaphone },
     { to: "/dashboard/brand-guideline", label: "Brand Guideline Generator", icon: FileText, badge: "New" },
     { to: "/dashboard/influencers", label: "Influencer OS", icon: Star },
