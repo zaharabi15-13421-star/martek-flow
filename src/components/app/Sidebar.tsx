@@ -64,9 +64,6 @@ const NAV = [
     { to: "/dashboard/brand-dna-setup", label: "Connect Platforms", icon: Plug, badge: "Start" },
     { to: "/dashboard/website-analysis", label: "Brand DNA", icon: Globe },
   ]},
-  { group: "AI Tools", items: [
-    { to: "/dashboard/brand-guideline", label: "Brand Guideline Generator", icon: FileText, badge: "New" },
-  ]},
   { group: "Intelligence", items: [
     { to: "/dashboard/intelligence", label: "Brand Intelligence", icon: Brain },
     { to: "/dashboard/audience", label: "Audience Intelligence", icon: Users },
@@ -75,6 +72,7 @@ const NAV = [
   { group: "Execution", items: [
     { to: "/dashboard/creative", label: "Creative Engine", icon: Sparkles, creative: true as const },
     { to: "/dashboard/campaigns", label: "Campaign Automation", icon: Megaphone },
+    { to: "/dashboard/brand-guideline", label: "Brand Guideline Generator", icon: FileText, badge: "New" },
     { to: "/dashboard/influencers", label: "Influencer OS", icon: Star },
   ]},
   { group: "Growth", items: [
