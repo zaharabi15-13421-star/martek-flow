@@ -15,18 +15,22 @@ export const fetchWorldBankData = async (countryCode: string): Promise<WorldBank
     "SP.POP.TOTL",
     "SP.URB.TOTL.IN.ZS",
     "NY.GDP.PCAP.CD",
+    "SP.POP.TOTL.FE.ZS",
+    "SP.POP.1564.TO.ZS",
   ];
   const responses = await Promise.all(
     indicators.map((ind) =>
       fetch(`${WB_BASE}/country/${countryCode}/indicator/${ind}?format=json&mrv=1`).then((r) => r.json()),
     ),
   );
-  const [pen, pop, urb, gdp] = responses.map(pickLatest);
+  const [pen, pop, urb, gdp, fem, wa] = responses.map(pickLatest);
   return {
     internetPenetration: pen.value,
     population: pop.value,
     urbanPopulation: urb.value,
     gdpPerCapita: gdp.value,
+    femalePercent: fem.value,
+    workingAgePercent: wa.value,
     lastUpdated: pen.date || "2023",
   };
 };
