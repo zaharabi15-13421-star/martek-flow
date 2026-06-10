@@ -509,16 +509,29 @@ function Bento() {
   );
 }
 
+const PLAN_FEATURES: Record<string, string[]> = {
+  free: ["Basic analytics", "Brand DNA", "Template gallery"],
+  starter: ["All channels", "CRM + Inbox", "Reporting", "Basic creative"],
+  pro: ["All channels", "Auto-pilot ads", "CRM + Inbox", "Reporting", "AI creative", "Influencers"],
+  growth: ["All channels", "Auto-pilot ads", "CRM + Inbox", "Reporting", "AI creative", "Predictive ROI", "Listening", "Influencers"],
+  enterprise: ["All channels", "Auto-pilot ads", "CRM + Inbox", "Reporting", "AI creative", "Predictive ROI", "Listening", "Influencers", "White-label", "API access", "Dedicated CSM"],
+};
+const ALL_FEATURES = ["Basic analytics", "Brand DNA", "Template gallery", "All channels", "CRM + Inbox", "Reporting", "Basic creative", "Auto-pilot ads", "AI creative", "Influencers", "Predictive ROI", "Listening", "White-label", "API access", "Dedicated CSM"];
+
 function ReplacementCalculator() {
+  const { user } = useAuth();
   const [enabled, setEnabled] = useState<Record<string, boolean>>(
     Object.fromEntries(REPLACED_TOOLS.map((t) => [t.name, true]))
   );
   const { cycle, setCycle } = useBillingToggle();
-  const currentPlan = PLANS.find((p) => p.id === "starter") ?? PLANS[1];
+  const [planId, setPlanId] = useState<string>("starter");
+  const currentPlan = PLANS.find((p) => p.id === planId) ?? PLANS[1];
   const total = REPLACED_TOOLS.reduce((s, t) => s + (enabled[t.name] ? t.cost : 0), 0);
-  const ourPrice = cycle === "annual" ? currentPlan.annualPerMo : currentPlan.monthly;
+  const ourPrice = currentPlan.isFree ? 0 : (cycle === "annual" ? currentPlan.annualPerMo : currentPlan.monthly);
   const savings = Math.max(total - ourPrice, 0);
-  const pct = total ? Math.round((savings / total) * 100) : 0;
+  const pct = total > 0 ? Math.max(Math.round((savings / total) * 100), 0) : 0;
+  const includedFeatures = new Set(PLAN_FEATURES[planId] ?? []);
+  const fmt = (n: number) => `$${n.toLocaleString()}`;
 
   return (
     <section id="calc" className="relative max-w-7xl mx-auto px-6 py-24">
@@ -526,14 +539,13 @@ function ReplacementCalculator() {
         <div className="text-[11px] uppercase tracking-widest text-emerald-300/80">UVP</div>
         <h2 className="mt-2 text-3xl md:text-5xl font-semibold tracking-tight">One AI Platform. <span className="text-gradient">10–15 Tools Replaced.</span></h2>
         <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">Toggle the tools your team currently pays for and watch your bill collapse.</p>
-        <div className="mt-5 flex justify-center"><BillingToggle cycle={cycle} onChange={setCycle} /></div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="glass rounded-2xl p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2 text-rose-300"><X className="h-4 w-4" /> Messy Stack</div>
-            <div className="text-sm text-muted-foreground">${total.toLocaleString()}/mo</div>
+            <div className="text-sm text-muted-foreground">{fmt(total)}/mo</div>
           </div>
           <div className="grid grid-cols-2 gap-2">
             {REPLACED_TOOLS.map((t) => {
@@ -553,18 +565,51 @@ function ReplacementCalculator() {
         </div>
 
         <div className="relative rounded-2xl p-6 bg-gradient-to-br from-indigo-500/15 to-purple-500/10 border border-indigo-400/30 glow-primary">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2 text-indigo-300"><Shield className="h-4 w-4" /> BrandSync Unified Shield</div>
-            <div className="text-sm text-muted-foreground">${ourPrice}/mo</div>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <div className="flex flex-col gap-2 flex-1 min-w-0">
+              <div className="flex items-center gap-2 text-indigo-300 text-sm"><Shield className="h-4 w-4" /> BrandSync Plan</div>
+              <select
+                value={planId}
+                onChange={(e) => setPlanId(e.target.value)}
+                className="w-full bg-[#0a0d16]/80 border border-indigo-400/30 rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-indigo-400"
+              >
+                {PLANS.map((p) => {
+                  const price = p.isFree ? 0 : (cycle === "annual" ? p.annualPerMo : p.monthly);
+                  return (
+                    <option key={p.id} value={p.id}>
+                      BrandSync {p.name} — ${price.toLocaleString()}/mo
+                    </option>
+                  );
+                })}
+              </select>
+              <div className="scale-90 origin-left">
+                <BillingToggle cycle={cycle} onChange={setCycle} showSavingsBadge={false} />
+              </div>
+            </div>
+            <div className="text-sm text-muted-foreground whitespace-nowrap sm:self-start">{fmt(ourPrice)}/mo</div>
           </div>
           <div className="rounded-xl bg-[#0a0d16]/60 p-6">
             <div className="text-[11px] uppercase tracking-widest text-emerald-300">You Save</div>
-            <div className="mt-1 text-5xl font-semibold text-emerald-300">${savings.toLocaleString()}</div>
+            <div className="mt-1 text-5xl font-semibold text-emerald-300">{fmt(savings)}</div>
             <div className="text-sm text-muted-foreground">per month — that's <span className="text-emerald-300">{pct}%</span> off your current MarTech bill.</div>
+            {!user && (
+              <Link to="/dashboard/intelligence" className="mt-3 inline-flex items-center gap-1 text-xs text-indigo-300 hover:text-indigo-200 transition">
+                Start your free trial <ArrowRight className="h-3 w-3" />
+              </Link>
+            )}
             <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-              {["All channels", "AI creative", "Auto-pilot ads", "Predictive ROI", "CRM + Inbox", "Listening", "Reporting", "Influencers"].map((f) => (
-                <div key={f} className="flex items-center gap-1.5 text-foreground/80"><Check className="h-3 w-3 text-emerald-400" /> {f}</div>
-              ))}
+              {ALL_FEATURES.map((f) => {
+                const has = includedFeatures.has(f);
+                return has ? (
+                  <div key={f} className="flex items-center gap-1.5 text-foreground/80"><Check className="h-3 w-3 text-emerald-400 shrink-0" /> {f}</div>
+                ) : (
+                  <div key={f} className="flex items-center gap-1.5 text-muted-foreground/50">
+                    <Lock className="h-3 w-3 shrink-0" />
+                    <span className="truncate">{f}</span>
+                    <span className="ml-auto text-[9px] uppercase tracking-wider text-indigo-300/70">Upgrade</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
