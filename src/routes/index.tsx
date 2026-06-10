@@ -526,6 +526,7 @@ function ReplacementCalculator() {
         <div className="text-[11px] uppercase tracking-widest text-emerald-300/80">UVP</div>
         <h2 className="mt-2 text-3xl md:text-5xl font-semibold tracking-tight">One AI Platform. <span className="text-gradient">10–15 Tools Replaced.</span></h2>
         <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">Toggle the tools your team currently pays for and watch your bill collapse.</p>
+        <div className="mt-5 flex justify-center"><BillingToggle cycle={cycle} onChange={setCycle} /></div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
