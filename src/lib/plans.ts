@@ -121,8 +121,8 @@ export const PLANS: Plan[] = [
     annualPerMo: 1049,
     annualBilled: 12588,
     savePct: 30,
-    ctaMonthly: "Contact sales",
-    ctaAnnual: "Contact sales (annual)",
+    ctaMonthly: "Contact Sales",
+    ctaAnnual: "Contact Sales",
     features: [
       { label: "Unlimited AI credits", included: true },
       { label: "Unlimited workspaces", included: true },
