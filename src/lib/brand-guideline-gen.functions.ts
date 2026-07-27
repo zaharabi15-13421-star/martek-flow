@@ -52,8 +52,8 @@ export const buildGuidelineContent = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     if (!bs) throw new Error("Brand summary not found");
 
-    const apiKey = process.env.LOVABLE_API_KEY;
-    if (!apiKey) throw new Error("LOVABLE_API_KEY not configured");
+    // API key check happens in the fallback branch below; Anthropic uses ANTHROPIC_API_KEY.
+
 
     const brief = {
       brand_name: bs.brand_name,
