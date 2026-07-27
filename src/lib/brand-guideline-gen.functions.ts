@@ -70,6 +70,29 @@ export const buildGuidelineContent = createServerFn({ method: "POST" })
       meta_description: bs.meta_description,
     };
 
+    const userPrompt = `Generate the comprehensive brand guideline JSON for this brand. Ground your choices in the brief; where the brief is thin, infer from the brand name, tagline, and industry conventions. Do not repeat generic advice.\n\nBRAND BRIEF:\n${JSON.stringify(brief, null, 2)}`;
+
+    // Prefer Anthropic Claude for higher-quality, more detailed guideline output.
+    try {
+      const { isAnthropicEnabled, callAnthropic } = await import("@/lib/anthropic.server");
+      if (isAnthropicEnabled()) {
+        const text = await callAnthropic({
+          system: SYSTEM,
+          user: userPrompt,
+          maxTokens: 8000,
+          temperature: 0.6,
+          jsonOnly: true,
+        });
+        const content = extractJson(text);
+        return { contentJson: JSON.stringify(content), brandSummaryJson: JSON.stringify(bs) };
+      }
+    } catch (e) {
+      console.warn("[brand-guideline] anthropic path failed, falling back to gateway", e);
+    }
+
+    const apiKey = process.env.LOVABLE_API_KEY;
+    if (!apiKey) throw new Error("LOVABLE_API_KEY not configured");
+
     const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
@@ -77,7 +100,7 @@ export const buildGuidelineContent = createServerFn({ method: "POST" })
         model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: SYSTEM },
-          { role: "user", content: `Generate the brand guideline JSON for this brand:\n${JSON.stringify(brief)}` },
+          { role: "user", content: userPrompt },
         ],
         response_format: { type: "json_object" },
       }),
