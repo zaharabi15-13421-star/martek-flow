@@ -2,8 +2,12 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-/* AI content schema reused from existing generator */
-const SYSTEM = `You are a world-class brand strategist and creative director. Given the brand data, return ONLY a single valid JSON object (no markdown, no preamble) with this exact shape:
+/* AI content schema — comprehensive brand guideline structure */
+const SYSTEM = `You are a world-class brand strategist, creative director, and design system architect with 20+ years of experience shaping category-defining brands (think Pentagram, Wolff Olins, Landor). Ground every recommendation in established brand-strategy frameworks: Jungian archetypes, Kapferer's Brand Identity Prism, Aaker's Brand Personality dimensions, Simon Sinek's Golden Circle, and modern positioning theory (Ries & Trout).
+
+For each brand brief, produce a rich, research-based, publication-ready brand guideline. Every field must be specific to THIS brand — no generic filler, no "best practices" boilerplate. Write with texture: concrete verbs, sensory language, precise nouns. Prefer 2-4 sentence paragraphs over one-liners for narrative fields. Populate every array with 4-7 distinct, non-overlapping items unless the schema specifies otherwise.
+
+Return ONLY a single valid JSON object (no markdown, no preamble, no code fences) with this exact shape:
 {
   "brand_overview": { "mission_statement": "", "vision_statement": "", "brand_story": "", "core_values": [], "unique_value_proposition": "" },
   "voice_and_tone": { "primary_tone": "", "secondary_tone": "", "communication_style": "", "personality_description": "", "dos": [], "donts": [], "sample_taglines": [], "sample_headlines": [], "sample_social_posts": [] },
@@ -11,7 +15,18 @@ const SYSTEM = `You are a world-class brand strategist and creative director. Gi
   "target_audience": { "primary_persona": { "name":"", "age_range":"", "description":"", "pain_points":[], "goals":[], "preferred_channels":[] }, "secondary_persona": { "name":"", "age_range":"", "description":"" } },
   "brand_positioning": { "positioning_statement":"", "competitive_differentiators":[], "market_category":"", "competitive_landscape_notes":"" },
   "digital_guidelines": { "website_principles":[], "social_media_guidelines":{ "profile_bio_template":"", "hashtag_strategy":[], "posting_tone":"", "content_pillars":[] }, "email_guidelines":{ "subject_line_style":"", "greeting_style":"", "signature_template":"" } }
-}`;
+}
+
+Quality bar:
+- mission_statement: one crisp sentence naming the change the brand creates in the world.
+- vision_statement: aspirational 10-year future state, present tense.
+- brand_story: 3-5 sentence origin narrative with a real tension and resolution.
+- unique_value_proposition: contrast-based ("Unlike X, we…").
+- color_palette: use hex values that harmonize with any brand colors provided in the brief; give each color a distinctive proper name and a specific usage rule.
+- typography: recommend real, widely-available font families (Google Fonts or common system fonts) that match the brand's tone.
+- personas: name them, age-band them, and describe a day-in-the-life scenario in the description.
+- positioning_statement: use the classic "For [audience] who [need], [brand] is the [category] that [benefit] because [reason to believe]" format.
+- website_principles, content_pillars, differentiators: each item must be a concrete, brand-specific rule — not a generic maxim.`;
 
 function extractJson(text: string): unknown {
   const cleaned = text.replace(/```json|```/g, "").trim();
@@ -37,8 +52,8 @@ export const buildGuidelineContent = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     if (!bs) throw new Error("Brand summary not found");
 
-    const apiKey = process.env.LOVABLE_API_KEY;
-    if (!apiKey) throw new Error("LOVABLE_API_KEY not configured");
+    // API key check happens in the fallback branch below; Anthropic uses ANTHROPIC_API_KEY.
+
 
     const brief = {
       brand_name: bs.brand_name,
@@ -55,6 +70,29 @@ export const buildGuidelineContent = createServerFn({ method: "POST" })
       meta_description: bs.meta_description,
     };
 
+    const userPrompt = `Generate the comprehensive brand guideline JSON for this brand. Ground your choices in the brief; where the brief is thin, infer from the brand name, tagline, and industry conventions. Do not repeat generic advice.\n\nBRAND BRIEF:\n${JSON.stringify(brief, null, 2)}`;
+
+    // Prefer Anthropic Claude for higher-quality, more detailed guideline output.
+    try {
+      const { isAnthropicEnabled, callAnthropic } = await import("@/lib/anthropic.server");
+      if (isAnthropicEnabled()) {
+        const text = await callAnthropic({
+          system: SYSTEM,
+          user: userPrompt,
+          maxTokens: 8000,
+          temperature: 0.6,
+          jsonOnly: true,
+        });
+        const content = extractJson(text);
+        return { contentJson: JSON.stringify(content), brandSummaryJson: JSON.stringify(bs) };
+      }
+    } catch (e) {
+      console.warn("[brand-guideline] anthropic path failed, falling back to gateway", e);
+    }
+
+    const apiKey = process.env.LOVABLE_API_KEY;
+    if (!apiKey) throw new Error("LOVABLE_API_KEY not configured");
+
     const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
@@ -62,7 +100,7 @@ export const buildGuidelineContent = createServerFn({ method: "POST" })
         model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: SYSTEM },
-          { role: "user", content: `Generate the brand guideline JSON for this brand:\n${JSON.stringify(brief)}` },
+          { role: "user", content: userPrompt },
         ],
         response_format: { type: "json_object" },
       }),

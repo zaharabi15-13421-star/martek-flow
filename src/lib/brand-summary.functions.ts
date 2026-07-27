@@ -83,6 +83,22 @@ const ENHANCE_PROMPTS: Record<string, { system: string; user: (v: string, b: any
 };
 
 async function callLovableAI(systemPrompt: string, userPrompt: string): Promise<string> {
+  // Prefer Anthropic Claude (higher-quality brand copy) when the key is present,
+  // fall back to the Lovable AI Gateway (Gemini) otherwise.
+  try {
+    const { isAnthropicEnabled, callAnthropic } = await import("@/lib/anthropic.server");
+    if (isAnthropicEnabled()) {
+      return await callAnthropic({
+        system: systemPrompt,
+        user: userPrompt,
+        maxTokens: 700,
+        temperature: 0.7,
+      });
+    }
+  } catch (e) {
+    console.warn("[ai-enhance] anthropic path failed, falling back to gateway", e);
+  }
+
   const apiKey = process.env.LOVABLE_API_KEY;
   if (!apiKey) throw new Error("AI not configured");
   const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
