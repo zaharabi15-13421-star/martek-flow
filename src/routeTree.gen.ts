@@ -9,41 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DashboardWebsiteAnalysisRouteImport } from './routes/dashboard.website-analysis'
-import { Route as DashboardSimulationRouteImport } from './routes/dashboard.simulation'
-import { Route as DashboardReputationRouteImport } from './routes/dashboard.reputation'
-import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
-import { Route as DashboardIntelligenceRouteImport } from './routes/dashboard.intelligence'
-import { Route as DashboardInfluencersRouteImport } from './routes/dashboard.influencers'
-import { Route as DashboardCrmRouteImport } from './routes/dashboard.crm'
-import { Route as DashboardCreativeRouteImport } from './routes/dashboard.creative'
-import { Route as DashboardCollaborationRouteImport } from './routes/dashboard.collaboration'
-import { Route as DashboardCampaignsRouteImport } from './routes/dashboard.campaigns'
-import { Route as DashboardBrandGuidelineRouteImport } from './routes/dashboard.brand-guideline'
-import { Route as DashboardBrandDnaSetupRouteImport } from './routes/dashboard.brand-dna-setup'
-import { Route as DashboardBillingRouteImport } from './routes/dashboard.billing'
-import { Route as DashboardAudienceRouteImport } from './routes/dashboard.audience'
-import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard.analytics'
-import { Route as BrandBookSlugRouteImport } from './routes/brand-book.$slug'
-import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as BrandBookSlugRouteImport } from './routes/brand-book.$slug'
+import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard.analytics'
+import { Route as DashboardAudienceRouteImport } from './routes/dashboard.audience'
+import { Route as DashboardBillingRouteImport } from './routes/dashboard.billing'
+import { Route as DashboardBrandDnaSetupRouteImport } from './routes/dashboard.brand-dna-setup'
+import { Route as DashboardBrandGuidelineRouteImport } from './routes/dashboard.brand-guideline'
+import { Route as DashboardCampaignsRouteImport } from './routes/dashboard.campaigns'
+import { Route as DashboardCollaborationRouteImport } from './routes/dashboard.collaboration'
+import { Route as DashboardCreativeRouteImport } from './routes/dashboard.creative'
+import { Route as DashboardCrmRouteImport } from './routes/dashboard.crm'
+import { Route as DashboardInfluencersRouteImport } from './routes/dashboard.influencers'
+import { Route as DashboardIntelligenceRouteImport } from './routes/dashboard.intelligence'
+import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
+import { Route as DashboardReputationRouteImport } from './routes/dashboard.reputation'
+import { Route as DashboardSimulationRouteImport } from './routes/dashboard.simulation'
+import { Route as DashboardWebsiteAnalysisRouteImport } from './routes/dashboard.website-analysis'
 import { Route as DashboardCreativeTemplatesRouteImport } from './routes/dashboard.creative.templates'
 import { Route as ApiPublicHooksGa4SyncRouteImport } from './routes/api/public/hooks/ga4-sync'
-import { Route as DashboardCreativeTemplatesEditorTemplateIdRouteImport } from './routes/dashboard.creative.templates.editor.$templateId'
 import { Route as ApiPublicGaOauthCallbackRouteImport } from './routes/api/public/ga/oauth/callback'
+import { Route as DashboardCreativeTemplatesEditorTemplateIdRouteImport } from './routes/dashboard.creative.templates.editor.$templateId'
 
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -51,95 +46,14 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardWebsiteAnalysisRoute =
-  DashboardWebsiteAnalysisRouteImport.update({
-    id: '/website-analysis',
-    path: '/website-analysis',
-    getParentRoute: () => DashboardRoute,
-  } as any)
-const DashboardSimulationRoute = DashboardSimulationRouteImport.update({
-  id: '/simulation',
-  path: '/simulation',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardReputationRoute = DashboardReputationRouteImport.update({
-  id: '/reputation',
-  path: '/reputation',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardProfileRoute = DashboardProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardIntelligenceRoute = DashboardIntelligenceRouteImport.update({
-  id: '/intelligence',
-  path: '/intelligence',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardInfluencersRoute = DashboardInfluencersRouteImport.update({
-  id: '/influencers',
-  path: '/influencers',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardCrmRoute = DashboardCrmRouteImport.update({
-  id: '/crm',
-  path: '/crm',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardCreativeRoute = DashboardCreativeRouteImport.update({
-  id: '/creative',
-  path: '/creative',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardCollaborationRoute = DashboardCollaborationRouteImport.update({
-  id: '/collaboration',
-  path: '/collaboration',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardCampaignsRoute = DashboardCampaignsRouteImport.update({
-  id: '/campaigns',
-  path: '/campaigns',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardBrandGuidelineRoute = DashboardBrandGuidelineRouteImport.update({
-  id: '/brand-guideline',
-  path: '/brand-guideline',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardBrandDnaSetupRoute = DashboardBrandDnaSetupRouteImport.update({
-  id: '/brand-dna-setup',
-  path: '/brand-dna-setup',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardBillingRoute = DashboardBillingRouteImport.update({
-  id: '/billing',
-  path: '/billing',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardAudienceRoute = DashboardAudienceRouteImport.update({
-  id: '/audience',
-  path: '/audience',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardAnalyticsRoute = DashboardAnalyticsRouteImport.update({
-  id: '/analytics',
-  path: '/analytics',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const BrandBookSlugRoute = BrandBookSlugRouteImport.update({
-  id: '/brand-book/$slug',
-  path: '/brand-book/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthCallbackRoute = AuthCallbackRouteImport.update({
-  id: '/auth/callback',
-  path: '/auth/callback',
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
@@ -147,6 +61,92 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandBookSlugRoute = BrandBookSlugRouteImport.update({
+  id: '/brand-book/$slug',
+  path: '/brand-book/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardAnalyticsRoute = DashboardAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardAudienceRoute = DashboardAudienceRouteImport.update({
+  id: '/audience',
+  path: '/audience',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardBillingRoute = DashboardBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardBrandDnaSetupRoute = DashboardBrandDnaSetupRouteImport.update({
+  id: '/brand-dna-setup',
+  path: '/brand-dna-setup',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardBrandGuidelineRoute = DashboardBrandGuidelineRouteImport.update({
+  id: '/brand-guideline',
+  path: '/brand-guideline',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardCampaignsRoute = DashboardCampaignsRouteImport.update({
+  id: '/campaigns',
+  path: '/campaigns',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardCollaborationRoute = DashboardCollaborationRouteImport.update({
+  id: '/collaboration',
+  path: '/collaboration',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardCreativeRoute = DashboardCreativeRouteImport.update({
+  id: '/creative',
+  path: '/creative',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardCrmRoute = DashboardCrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardInfluencersRoute = DashboardInfluencersRouteImport.update({
+  id: '/influencers',
+  path: '/influencers',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardIntelligenceRoute = DashboardIntelligenceRouteImport.update({
+  id: '/intelligence',
+  path: '/intelligence',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardReputationRoute = DashboardReputationRouteImport.update({
+  id: '/reputation',
+  path: '/reputation',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSimulationRoute = DashboardSimulationRouteImport.update({
+  id: '/simulation',
+  path: '/simulation',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardWebsiteAnalysisRoute =
+  DashboardWebsiteAnalysisRouteImport.update({
+    id: '/website-analysis',
+    path: '/website-analysis',
+    getParentRoute: () => DashboardRoute,
+  } as any)
 const DashboardCreativeTemplatesRoute =
   DashboardCreativeTemplatesRouteImport.update({
     id: '/templates',
@@ -158,17 +158,17 @@ const ApiPublicHooksGa4SyncRoute = ApiPublicHooksGa4SyncRouteImport.update({
   path: '/api/public/hooks/ga4-sync',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardCreativeTemplatesEditorTemplateIdRoute =
-  DashboardCreativeTemplatesEditorTemplateIdRouteImport.update({
-    id: '/editor/$templateId',
-    path: '/editor/$templateId',
-    getParentRoute: () => DashboardCreativeTemplatesRoute,
-  } as any)
 const ApiPublicGaOauthCallbackRoute =
   ApiPublicGaOauthCallbackRouteImport.update({
     id: '/api/public/ga/oauth/callback',
     path: '/api/public/ga/oauth/callback',
     getParentRoute: () => rootRouteImport,
+  } as any)
+const DashboardCreativeTemplatesEditorTemplateIdRoute =
+  DashboardCreativeTemplatesEditorTemplateIdRouteImport.update({
+    id: '/editor/$templateId',
+    path: '/editor/$templateId',
+    getParentRoute: () => DashboardCreativeTemplatesRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -357,18 +357,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -378,123 +371,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/website-analysis': {
-      id: '/dashboard/website-analysis'
-      path: '/website-analysis'
-      fullPath: '/dashboard/website-analysis'
-      preLoaderRoute: typeof DashboardWebsiteAnalysisRouteImport
-      parentRoute: typeof DashboardRoute
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/dashboard/simulation': {
-      id: '/dashboard/simulation'
-      path: '/simulation'
-      fullPath: '/dashboard/simulation'
-      preLoaderRoute: typeof DashboardSimulationRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/reputation': {
-      id: '/dashboard/reputation'
-      path: '/reputation'
-      fullPath: '/dashboard/reputation'
-      preLoaderRoute: typeof DashboardReputationRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/profile': {
-      id: '/dashboard/profile'
-      path: '/profile'
-      fullPath: '/dashboard/profile'
-      preLoaderRoute: typeof DashboardProfileRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/intelligence': {
-      id: '/dashboard/intelligence'
-      path: '/intelligence'
-      fullPath: '/dashboard/intelligence'
-      preLoaderRoute: typeof DashboardIntelligenceRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/influencers': {
-      id: '/dashboard/influencers'
-      path: '/influencers'
-      fullPath: '/dashboard/influencers'
-      preLoaderRoute: typeof DashboardInfluencersRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/crm': {
-      id: '/dashboard/crm'
-      path: '/crm'
-      fullPath: '/dashboard/crm'
-      preLoaderRoute: typeof DashboardCrmRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/creative': {
-      id: '/dashboard/creative'
-      path: '/creative'
-      fullPath: '/dashboard/creative'
-      preLoaderRoute: typeof DashboardCreativeRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/collaboration': {
-      id: '/dashboard/collaboration'
-      path: '/collaboration'
-      fullPath: '/dashboard/collaboration'
-      preLoaderRoute: typeof DashboardCollaborationRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/campaigns': {
-      id: '/dashboard/campaigns'
-      path: '/campaigns'
-      fullPath: '/dashboard/campaigns'
-      preLoaderRoute: typeof DashboardCampaignsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/brand-guideline': {
-      id: '/dashboard/brand-guideline'
-      path: '/brand-guideline'
-      fullPath: '/dashboard/brand-guideline'
-      preLoaderRoute: typeof DashboardBrandGuidelineRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/brand-dna-setup': {
-      id: '/dashboard/brand-dna-setup'
-      path: '/brand-dna-setup'
-      fullPath: '/dashboard/brand-dna-setup'
-      preLoaderRoute: typeof DashboardBrandDnaSetupRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/billing': {
-      id: '/dashboard/billing'
-      path: '/billing'
-      fullPath: '/dashboard/billing'
-      preLoaderRoute: typeof DashboardBillingRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/audience': {
-      id: '/dashboard/audience'
-      path: '/audience'
-      fullPath: '/dashboard/audience'
-      preLoaderRoute: typeof DashboardAudienceRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/analytics': {
-      id: '/dashboard/analytics'
-      path: '/analytics'
-      fullPath: '/dashboard/analytics'
-      preLoaderRoute: typeof DashboardAnalyticsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/brand-book/$slug': {
-      id: '/brand-book/$slug'
-      path: '/brand-book/$slug'
-      fullPath: '/brand-book/$slug'
-      preLoaderRoute: typeof BrandBookSlugRouteImport
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/callback': {
@@ -504,12 +399,117 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/chat': {
-      id: '/api/chat'
-      path: '/api/chat'
-      fullPath: '/api/chat'
-      preLoaderRoute: typeof ApiChatRouteImport
+    '/brand-book/$slug': {
+      id: '/brand-book/$slug'
+      path: '/brand-book/$slug'
+      fullPath: '/brand-book/$slug'
+      preLoaderRoute: typeof BrandBookSlugRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/analytics': {
+      id: '/dashboard/analytics'
+      path: '/analytics'
+      fullPath: '/dashboard/analytics'
+      preLoaderRoute: typeof DashboardAnalyticsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/audience': {
+      id: '/dashboard/audience'
+      path: '/audience'
+      fullPath: '/dashboard/audience'
+      preLoaderRoute: typeof DashboardAudienceRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/billing': {
+      id: '/dashboard/billing'
+      path: '/billing'
+      fullPath: '/dashboard/billing'
+      preLoaderRoute: typeof DashboardBillingRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/brand-dna-setup': {
+      id: '/dashboard/brand-dna-setup'
+      path: '/brand-dna-setup'
+      fullPath: '/dashboard/brand-dna-setup'
+      preLoaderRoute: typeof DashboardBrandDnaSetupRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/brand-guideline': {
+      id: '/dashboard/brand-guideline'
+      path: '/brand-guideline'
+      fullPath: '/dashboard/brand-guideline'
+      preLoaderRoute: typeof DashboardBrandGuidelineRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/campaigns': {
+      id: '/dashboard/campaigns'
+      path: '/campaigns'
+      fullPath: '/dashboard/campaigns'
+      preLoaderRoute: typeof DashboardCampaignsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/collaboration': {
+      id: '/dashboard/collaboration'
+      path: '/collaboration'
+      fullPath: '/dashboard/collaboration'
+      preLoaderRoute: typeof DashboardCollaborationRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/creative': {
+      id: '/dashboard/creative'
+      path: '/creative'
+      fullPath: '/dashboard/creative'
+      preLoaderRoute: typeof DashboardCreativeRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/crm': {
+      id: '/dashboard/crm'
+      path: '/crm'
+      fullPath: '/dashboard/crm'
+      preLoaderRoute: typeof DashboardCrmRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/influencers': {
+      id: '/dashboard/influencers'
+      path: '/influencers'
+      fullPath: '/dashboard/influencers'
+      preLoaderRoute: typeof DashboardInfluencersRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/intelligence': {
+      id: '/dashboard/intelligence'
+      path: '/intelligence'
+      fullPath: '/dashboard/intelligence'
+      preLoaderRoute: typeof DashboardIntelligenceRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/profile': {
+      id: '/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/reputation': {
+      id: '/dashboard/reputation'
+      path: '/reputation'
+      fullPath: '/dashboard/reputation'
+      preLoaderRoute: typeof DashboardReputationRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/simulation': {
+      id: '/dashboard/simulation'
+      path: '/simulation'
+      fullPath: '/dashboard/simulation'
+      preLoaderRoute: typeof DashboardSimulationRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/website-analysis': {
+      id: '/dashboard/website-analysis'
+      path: '/website-analysis'
+      fullPath: '/dashboard/website-analysis'
+      preLoaderRoute: typeof DashboardWebsiteAnalysisRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/dashboard/creative/templates': {
       id: '/dashboard/creative/templates'
@@ -525,19 +525,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksGa4SyncRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/creative/templates/editor/$templateId': {
-      id: '/dashboard/creative/templates/editor/$templateId'
-      path: '/editor/$templateId'
-      fullPath: '/dashboard/creative/templates/editor/$templateId'
-      preLoaderRoute: typeof DashboardCreativeTemplatesEditorTemplateIdRouteImport
-      parentRoute: typeof DashboardCreativeTemplatesRoute
-    }
     '/api/public/ga/oauth/callback': {
       id: '/api/public/ga/oauth/callback'
       path: '/api/public/ga/oauth/callback'
       fullPath: '/api/public/ga/oauth/callback'
       preLoaderRoute: typeof ApiPublicGaOauthCallbackRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/creative/templates/editor/$templateId': {
+      id: '/dashboard/creative/templates/editor/$templateId'
+      path: '/editor/$templateId'
+      fullPath: '/dashboard/creative/templates/editor/$templateId'
+      preLoaderRoute: typeof DashboardCreativeTemplatesEditorTemplateIdRouteImport
+      parentRoute: typeof DashboardCreativeTemplatesRoute
     }
   }
 }
@@ -622,13 +622,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
